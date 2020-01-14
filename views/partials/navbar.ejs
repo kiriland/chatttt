@@ -1,0 +1,203 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        />
+        <link rel="stylesheet" href="/styles.css" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo" style="padding-left: 5%;"
+                    >Chatttt</a
+                >
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="sass.html" data-loggedIn
+                            ><i class="material-icons left">search</i>Find
+                            Someone to Chat</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="modal-trigger"
+                            href="#"
+                            data-target="modal-signin"
+                            data-loggedOut
+                            >Log In</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="modal-trigger"
+                            href="#"
+                            data-target="modal-SignUp"
+                            data-loggedOut
+                            >Sign Up</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="modal-trigger"
+                            href="#"
+                            data-target="modal-Account"
+                            data-loggedIn
+                            >Account</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="modal-trigger"
+                            href="#"
+                            data-type="logout"
+                            data-loggedIn
+                            >Log Out</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="modal-SignUp" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <form class="col s12" id="signup-form">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="validate"
+                                />
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input
+                                    id="password"
+                                    type="password"
+                                    class="validate"
+                                />
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a
+                    href="#!"
+                    class="modal-close waves-effect waves-green btn-flat"
+                    data-type="signup"
+                    >Sign Up</a
+                >
+            </div>
+        </div>
+        <div id="modal-signin" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <form class="col s12" id="signin-form">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="validate"
+                                />
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input
+                                    id="password"
+                                    type="password"
+                                    class="validate"
+                                />
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a
+                    href="#!"
+                    class="modal-close waves-effect waves-green btn-flat"
+                    data-type="signin"
+                    >Log In</a
+                >
+            </div>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function() {
+            $(".modal").modal();
+        });
+        // SignIn process
+        $('a[data-type="signin"]').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/signin",
+                data: {
+                    email: $("#modal-signin input#email").val(),
+                    password: $("#modal-signin input#password").val()
+                },
+                success: function(data) {
+                    window.location = "chat";
+                }
+            });
+            $("#signin-form").trigger("reset");
+        });
+        // SignUp process
+        $('a[data-type="signup"]').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/signup",
+                data: {
+                    email: $("#modal-signup input#email").val(),
+                    password: $("#modal-signup input#password").val()
+                },
+                success: function(result) {
+                    window.location = "chat";
+                },
+                error: function(result) {
+                    alert("error");
+                }
+            });
+            $("#signup-form").trigger("reset");
+        });
+        // LogOut process
+        $('a[data-type="logout"]').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/logout",
+                success: function(result) {
+                    window.location = "/";
+                },
+                error: function(result) {
+                    alert("error");
+                }
+            });
+        });
+    </script>
+</html>

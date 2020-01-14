@@ -1,0 +1,16 @@
+div.modal {
+    width: 30%;
+}
+
+#chat-window {
+    height: 500px;
+    overflow: auto;
+}
+
+h5 {
+    margin: .656rem 0 .656rem 0
+}
+
+ul {
+    margin-top: 0px;
+}

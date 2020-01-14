@@ -1,0 +1,18 @@
+{
+  "name": "tropper",
+  "version": "1.0.0",
+  "description": "web chat okayy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.1.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "firebase": "^7.2.1",
+    "socket.io": "^2.3.0"
+  }
+}
